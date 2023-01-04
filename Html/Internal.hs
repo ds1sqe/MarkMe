@@ -9,7 +9,7 @@ newtype Structure = Structure String
 
 type Title = String
 
--- * Internal function
+-- * Internal Function
 
 getStringFromStructure :: Structure -> String
 getStringFromStructure (Structure str) = str
@@ -33,7 +33,7 @@ escape =
     concatMap escapeChar
 
 
--- * Exportable function
+-- * Exportable Function
 appendTag :: Structure -> Structure -> Structure
 appendTag tag1 tag2 =
     Structure (getStringFromStructure tag1 <> getStringFromStructure tag2)
