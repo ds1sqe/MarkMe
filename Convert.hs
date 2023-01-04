@@ -1,5 +1,6 @@
 module Convert where
 
+import           Html   ( Title )
 import qualified Html   as Hl
 
 import qualified Markup as Mk
@@ -18,11 +19,15 @@ convertMarkupToHtml structure =
     Mk.Paragraph str ->
         Hl.pTag str
 
-    Mk.UnorderedList [str] ->
-        Hl.ulTag $ map Hl.pTag [str]
+    Mk.UnorderedList list ->
+        Hl.ulTag $ map Hl.pTag list
 
-    Mk.OrderedList [str] ->
-        Hl.olTag $ map Hl.pTag [str]
+    Mk.OrderedList list ->
+        Hl.olTag $ map Hl.pTag list
 
-    Mk.CodeBlock [str]->
-        Hl.codeTag (unlines [str])
+    Mk.CodeBlock codes ->
+        Hl.codeTag (unlines codes)
+
+
+process :: Title -> String -> String
+process title = Hl.render . convert title . Mk.parse
