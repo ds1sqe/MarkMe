@@ -30,9 +30,11 @@ parseLines context txts =
     -- completed or a input was invailid
     [] -> maybeToList context
 
-    -- Heading
+    -- TODO: implement h2..h5
+    -- Heading 1
     ('*' : ' ' : line) : rest ->
         maybe id (:) context (Heading 1 (trim line) : parseLines Nothing rest)
+
 
     -- UnorderedList
     ('-' : ' ' : line) : rest ->

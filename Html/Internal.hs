@@ -1,5 +1,9 @@
 -- MarkMe/Html/Internal.hs
+
 module Html.Internal where
+
+import           Numeric.Natural
+
 
 -- * Types
 
@@ -8,6 +12,20 @@ newtype Html = Html String
 newtype Structure = Structure String
 
 type Title = String
+
+-- * Monoid and Semigroup
+
+instance Semigroup Structure where
+    (<>) s1 s2 =
+        Structure (getStringFromStructure s1
+          <> getStringFromStructure s2)
+
+
+emptyStructure :: Structure
+emptyStructure = Structure ""
+
+instance Monoid Structure where
+    mempty = emptyStructure
 
 -- * Internal Function
 
@@ -41,8 +59,8 @@ appendTag tag1 tag2 =
 
 -- * Tags
 
-h1Tag :: String -> Structure
-h1Tag = Structure . element "h1" . escape
+hTag :: Natural -> String -> Structure
+hTag num = Structure . element ("h" <> show num) . escape
 
 pTag :: String -> Structure
 pTag = Structure . element "p" . escape
